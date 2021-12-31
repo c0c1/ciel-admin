@@ -1,0 +1,53 @@
+.idea/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+admin/node_modules
+admin/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+admin/.next/
+admin/out/
+
+# production
+admin/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# vercel
+.vercel
+
+interface/.buildpath
+interface/.hgignore.swp
+interface/.project
+interface/.orig
+interface/.swp
+interface/.settings/
+interface/.vscode/
+interface/vender/
+interface/log/
+interface/composer.lock
+interface/gitpush.sh
+interface/bin/
+interface/cbuild
+*/.DS_Store
+interface/gf-empty
+interface/go.sum
+
