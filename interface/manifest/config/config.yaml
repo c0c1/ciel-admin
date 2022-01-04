@@ -1,0 +1,37 @@
+server:
+  address: ":1211"
+  serverRoot: "resource/public"
+  dumpRouterMap: true
+  routeOverWrite: true
+  accessLogEnabled: true
+  openapiPath: "/api.json"
+  swaggerPath: "/swagger"
+  jwtExpireDuration: "1D"
+  rootFilePath: "/home/howl/learn/ciel-admin/interface/resource/public/resource/upload"
+
+logger:
+  level: "all"
+  stdout: true
+
+# Database.
+database:
+  logger:
+    level: "all"
+    stdout: true
+  default:
+    link: "mysql:ciel:hPCTACjHDxdAZebn@tcp(127.0.0.1:3306)/ciel"
+    debug: true
+
+redis:
+  default:
+    address: "127.0.0.1:6379"
+    db: 6
+# CLI.
+gfcli:
+  gen:
+    dao:
+      - link: "mysql:ciel:hPCTACjHDxdAZebn@tcp(127.0.0.1:3306)/ciel"
+        tables: "s_admin,s_api,s_menu,s_role,s_role_api,s_role_menu,s_dict,s_file"
+        removePrefix: "s_"
+        descriptionTag: true
+        noModelComment: true

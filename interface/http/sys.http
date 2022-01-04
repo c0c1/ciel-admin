@@ -1,0 +1,19 @@
+### get api
+GET {{url}}/api/list?desc=2
+
+### Upload img
+POST {{url}}/file/upload
+Authorization: {{token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="files"; filename="Lark20201204183701.png"
+Content-Type: image/png
+
+< /home/howl/Downloads/1.png
+
+--WebAppBoundary
+Content-Disposition: form-data; name="group"
+Content-Type: text/plain
+
+img

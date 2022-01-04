@@ -1,12 +1,18 @@
 package main
 
 import (
-	_ "interface/boot"
-	_ "interface/router"
+	_ "interface/internal/packed"
 
-	"github.com/gogf/gf/frame/g"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gctx"
+	"interface/internal/cmd"
 )
 
 func main() {
-	g.Server().Run()
+	var (
+		ctx = gctx.New()
+	)
+	if err := cmd.Main.Run(ctx); err != nil {
+		g.Log().Fatal(ctx, err)
+	}
 }

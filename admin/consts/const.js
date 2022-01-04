@@ -1,0 +1,13 @@
+export const successTime = 2000
+export const warningTime = 5000
+export const errorTime = 5000
+export const infoTime = 2000
+export const ConfirmMsg = '确认删除'
+export const DestinationUrl = '/login'
+export const LoadingMsg = '请稍后...'
+export const SuccessMsg = "操作成功"
+export const RefreshInterval = 1000
+export const DefaultPageParam = {page: 1, pageSize: 10, status: '', hasData: false}
+export const KeyUserInfo = "user_info"
+export const KeyUserToken = "user_token"
+export const SubmitBtnMsg = "提交"

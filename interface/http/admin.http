@@ -1,0 +1,8 @@
+### login
+POST {{url}}/admin/login
+Content-Type: application/json
+
+{
+  "uname": "admin",
+  "pwd": "1"
+}
