@@ -20,3 +20,14 @@ ok 文件生成 Wed 05 Jan 2022	09:02:32 PM
     - data 文件名
     - index 文件名 
 ```
+
+## 自动代码步骤
+
+1. 创建数据表
+2. 使用 gf gen dao 生成实体文件
+3. 转到文件生成方法 ciel-admin/interface/utility/utils/xfile/xfile_test.go
+4. 配置 `TemplateConfig`  具体说明见 TemplateConfig
+5. 运行 Gen方法生成文件
+6. 到菜单页面创建对应菜单
+7. 到角色页面分配角色菜单权限
+8. 退出重新登录
