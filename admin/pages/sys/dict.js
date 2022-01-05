@@ -20,7 +20,7 @@ export default function Dict() {
         setForm({add: add})
         if (!add) {
             const {data} = await getDictById(id)
-            if (resBaseCode(data)) return
+
             setForm({...data.normal_data})
         }
         setShow(true)

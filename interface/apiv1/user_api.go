@@ -7,3 +7,15 @@ type UserReq struct {
 	PageSize int `d:"10"`
 	entity.User
 }
+
+type LoginLogReq struct {
+	Page     int `d:"1"`
+	PageSize int `d:"10"`
+	entity.LoginLog
+}
+
+type UserDetailsReq struct {
+	Page     int `d:"1"`
+	PageSize int `d:"10"`
+	entity.UserDetails
+}

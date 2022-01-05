@@ -96,8 +96,8 @@ export const Layout = ({children, dark, setDark, theme}) => {
                                     <ListItemText primary={item.name}/>
                                 </ListItem>)}
                             </List>
-                            <Divider/>
                         </Collapse>
+                        <Divider/>
                     </div>)
                 })}
             </List>

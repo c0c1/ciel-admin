@@ -27,7 +27,7 @@ export default function File() {
         setForm({add: add})
         if (!add) {
             const {data} = await getFileById(id)
-            if (resBaseCode(data)) return
+
             setForm({...data.normal_data})
         }
         setShow(true)

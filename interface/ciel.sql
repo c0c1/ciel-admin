@@ -75,7 +75,7 @@ CREATE TABLE `s_api` (
 
 LOCK TABLES `s_api` WRITE;
 /*!40000 ALTER TABLE `s_api` DISABLE KEYS */;
-INSERT INTO `s_api` (`id`, `url`, `method`, `group`, `desc`, `status`, `created_at`, `updated_at`) VALUES (2,'/menu','POST','menu','22',1,'2021-11-19 19:02:52','2021-11-19 19:02:52'),(3,'/menu','DELETE','menu','',1,'2021-11-19 19:02:55','2021-11-19 19:02:55'),(4,'/menu','PUT','menu','',1,'2021-11-19 19:02:32','2021-11-19 19:02:32'),(5,'/api','POST','api','',1,'2021-11-19 19:03:47','2021-11-19 19:03:47'),(6,'/api','DELETE','api','',1,'2021-11-19 19:03:58','2021-11-19 19:03:58'),(7,'/api','PUT','api','',1,'2021-11-19 19:04:06','2021-11-19 19:04:06'),(8,'/role','POST','role','',1,'2021-11-20 16:39:50','2021-11-20 16:39:50'),(9,'/role','DELETE','role','',1,'2021-11-20 16:40:01','2021-11-20 16:40:01'),(10,'/role','DELETE','role','',1,'2021-11-20 16:40:08','2021-11-20 16:40:08'),(11,'/admin','POST','admin','',1,'2021-11-20 16:40:26','2021-11-20 16:40:26'),(12,'/admin','DELETE','admin','',1,'2021-11-23 11:42:00','2021-11-23 11:42:00'),(13,'/admin','PUT','admin','2',1,'2021-12-04 11:01:40','2021-12-04 11:01:40'),(14,'/dict','POST','dict','',1,'2021-11-20 16:40:58','2021-11-20 16:40:58'),(15,'/dict','DELETE','dict','',1,'2021-11-20 16:41:07','2021-11-20 16:41:07'),(16,'/dict','PUT','dict','',1,'2021-11-20 16:41:12','2021-11-20 16:41:12'),(17,'/file','POST','file','',1,'2021-11-20 16:41:20','2021-12-04 11:01:47'),(18,'/file','DELETE','file','',1,'2021-11-20 16:41:27','2021-11-20 16:41:27'),(19,'/file','PUT','file','file',1,'2021-11-20 16:41:35','2021-11-20 16:41:35'),(20,'/file/upload','POST','file','2',1,'2021-11-20 16:42:35','2021-12-06 18:15:51');
+INSERT INTO `s_api` (`id`, `url`, `method`, `group`, `desc`, `status`, `created_at`, `updated_at`) VALUES (2,'/menu/add','POST','menu','22',1,'2021-11-19 19:02:52','2021-11-19 19:02:52'),(3,'/menu','DELETE','menu','',1,'2021-11-19 19:02:55','2021-11-19 19:02:55'),(4,'/menu/update','PUT','menu','',1,'2021-11-19 19:02:32','2021-11-19 19:02:32'),(5,'/api/add','POST','api','',1,'2021-11-19 19:03:47','2021-11-19 19:03:47'),(6,'/api','DELETE','api','',1,'2021-11-19 19:03:58','2021-11-19 19:03:58'),(7,'/api/update','PUT','api','',1,'2021-11-19 19:04:06','2021-11-19 19:04:06'),(8,'/role/add','POST','role','',1,'2021-11-20 16:39:50','2021-11-20 16:39:50'),(9,'/role','DELETE','role','',1,'2021-11-20 16:40:01','2021-11-20 16:40:01'),(10,'/role','DELETE','role','',1,'2021-11-20 16:40:08','2021-11-20 16:40:08'),(11,'/admin/add','POST','admin','',1,'2021-11-20 16:40:26','2021-11-20 16:40:26'),(12,'/admin','DELETE','admin','',1,'2021-11-23 11:42:00','2021-11-23 11:42:00'),(13,'/admin/update','PUT','admin','2',1,'2021-12-04 11:01:40','2021-12-04 11:01:40'),(14,'/dict/add','POST','dict','',1,'2021-11-20 16:40:58','2021-11-20 16:40:58'),(15,'/dict','DELETE','dict','',1,'2021-11-20 16:41:07','2021-11-20 16:41:07'),(16,'/dict/update','PUT','dict','',1,'2021-11-20 16:41:12','2021-11-20 16:41:12'),(17,'/file/add','POST','file','',1,'2021-11-20 16:41:20','2021-12-04 11:01:47'),(18,'/file','DELETE','file','',1,'2021-11-20 16:41:27','2021-11-20 16:41:27'),(19,'/file/update','PUT','file','file',1,'2021-11-20 16:41:35','2021-11-20 16:41:35'),(20,'/file/upload','POST','file','2',1,'2021-11-20 16:42:35','2021-12-06 18:15:51');
 /*!40000 ALTER TABLE `s_api` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,7 +184,7 @@ CREATE TABLE `s_menu` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=325 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=327 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,7 +193,7 @@ CREATE TABLE `s_menu` (
 
 LOCK TABLES `s_menu` WRITE;
 /*!40000 ALTER TABLE `s_menu` DISABLE KEYS */;
-INSERT INTO `s_menu` (`id`, `pid`, `name`, `path`, `icon`, `type`, `sort`, `status`, `created_at`, `updated_at`) VALUES (2,34,'菜单','/sys/menu','MenuIcon',0,1.10,1,'2021-12-03 10:19:33','2021-12-06 23:14:57'),(3,34,'API','/sys/api','ListIcon',0,1.20,1,'2021-12-03 10:19:36','2021-11-23 10:13:47'),(4,34,'角色','/sys/role','ContactPageIcon',0,1.30,1,'2021-12-03 10:19:36','2021-12-06 23:14:51'),(5,34,'管理员','/sys/admin','SupervisorAccountIcon',0,1.40,1,'2021-12-03 10:19:36','2021-12-06 23:15:04'),(6,34,'字典','/sys/dict','MenuBookIcon',0,1.50,1,'2021-12-03 10:19:36','2021-12-06 23:15:11'),(7,34,'文件','/sys/file','AttachFileIcon',0,1.60,1,'2021-12-03 10:19:36','2021-12-06 23:15:18'),(34,-1,'系统','','SettingsIcon',1,1.00,1,'2021-12-03 10:19:36','2021-12-06 23:14:37'),(229,34,'Divider','','',2,1.41,1,'2021-12-03 10:19:36','2021-12-04 15:45:54'),(322,-1,'用户','','SupervisorAccountIcon',1,2.00,1,'2022-01-05 13:22:07','2022-01-05 14:14:29'),(323,322,'用户列表','/user/user','MenuIcon',0,2.10,1,'2022-01-05 13:23:03','2022-01-05 14:25:25'),(324,34,'图标','/sys/icon','FaceRetouchingNa',0,1.70,1,'2022-01-05 13:35:10','2022-01-05 14:14:09');
+INSERT INTO `s_menu` (`id`, `pid`, `name`, `path`, `icon`, `type`, `sort`, `status`, `created_at`, `updated_at`) VALUES (2,34,'菜单','/sys/menu','MenuIcon',0,1.10,1,'2021-12-03 10:19:33','2021-12-06 23:14:57'),(3,34,'API','/sys/api','ListIcon',0,1.20,1,'2021-12-03 10:19:36','2021-11-23 10:13:47'),(4,34,'角色','/sys/role','ContactPageIcon',0,1.30,1,'2021-12-03 10:19:36','2021-12-06 23:14:51'),(5,34,'管理员','/sys/admin','SupervisorAccountIcon',0,1.40,1,'2021-12-03 10:19:36','2021-12-06 23:15:04'),(6,34,'字典','/sys/dict','MenuBookIcon',0,1.50,1,'2021-12-03 10:19:36','2022-01-05 20:44:58'),(7,34,'文件','/sys/file','AttachFileIcon',0,1.60,1,'2021-12-03 10:19:36','2021-12-06 23:15:18'),(34,-1,'系统','','SettingsIcon',1,1.00,1,'2021-12-03 10:19:36','2021-12-06 23:14:37'),(229,34,'','','',2,1.41,1,'2021-12-03 10:19:36','2022-01-05 18:38:50'),(322,-1,'用户','','SupervisorAccountIcon',1,2.00,1,'2022-01-05 13:22:07','2022-01-05 14:14:29'),(323,322,'用户列表','/user/user','MenuIcon',0,2.10,1,'2022-01-05 13:23:03','2022-01-05 14:33:15'),(324,34,'图标','/sys/icon','FaceRetouchingNa',0,1.70,1,'2022-01-05 13:35:10','2022-01-05 14:14:09'),(325,322,'用户登录日志','/user/loginLog','MenuBookIcon',0,2.20,1,'2022-01-05 20:11:57','2022-01-05 20:12:13'),(326,322,'用户详情','/user/userDetails','ContactPageIcon',0,2.30,1,'2022-01-05 20:32:20','2022-01-05 20:32:49');
 /*!40000 ALTER TABLE `s_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,7 +238,7 @@ CREATE TABLE `s_role_api` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `rid` (`rid`,`aid`),
   CONSTRAINT `s_role_api_ibfk_1` FOREIGN KEY (`rid`) REFERENCES `s_role` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -267,7 +267,7 @@ CREATE TABLE `s_role_menu` (
   KEY `rid` (`rid`,`mid`),
   CONSTRAINT `s_role_menu_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `s_menu` (`id`) ON DELETE CASCADE,
   CONSTRAINT `s_role_menu_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `s_role` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=239 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -276,8 +276,37 @@ CREATE TABLE `s_role_menu` (
 
 LOCK TABLES `s_role_menu` WRITE;
 /*!40000 ALTER TABLE `s_role_menu` DISABLE KEYS */;
-INSERT INTO `s_role_menu` (`id`, `rid`, `mid`) VALUES (121,8,2),(122,8,3),(123,8,4),(124,8,5),(125,8,6),(182,8,7),(141,8,34),(146,8,229),(234,8,322),(235,8,323),(236,8,324),(226,9,2),(227,9,3),(228,9,4),(229,9,5),(230,9,6),(231,9,7),(232,9,34),(233,9,229);
+INSERT INTO `s_role_menu` (`id`, `rid`, `mid`) VALUES (121,8,2),(122,8,3),(123,8,4),(124,8,5),(125,8,6),(182,8,7),(141,8,34),(146,8,229),(234,8,322),(235,8,323),(236,8,324),(237,8,325),(238,8,326),(226,9,2),(227,9,3),(228,9,4),(229,9,5),(230,9,6),(231,9,7),(232,9,34),(233,9,229);
 /*!40000 ALTER TABLE `s_role_menu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `u_login_log`
+--
+
+DROP TABLE IF EXISTS `u_login_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `u_login_log` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `uid` bigint unsigned NOT NULL,
+  `ip` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `desc` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `u_login_log_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `u_user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `u_login_log`
+--
+
+LOCK TABLES `u_login_log` WRITE;
+/*!40000 ALTER TABLE `u_login_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `u_login_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -308,8 +337,37 @@ CREATE TABLE `u_user` (
 
 LOCK TABLES `u_user` WRITE;
 /*!40000 ALTER TABLE `u_user` DISABLE KEYS */;
-INSERT INTO `u_user` (`id`, `uname`, `pwd`, `nickname`, `icon`, `status`, `created_at`, `updated_at`) VALUES (1,'2','2','2','2',1,'2022-01-05 14:24:29','2022-01-05 06:24:45');
+INSERT INTO `u_user` (`id`, `uname`, `pwd`, `nickname`, `icon`, `status`, `created_at`, `updated_at`) VALUES (1,'2','2','2','2',1,'2022-01-05 14:24:29','2022-01-05 06:49:38');
 /*!40000 ALTER TABLE `u_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `u_user_details`
+--
+
+DROP TABLE IF EXISTS `u_user_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `u_user_details` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `uid` bigint unsigned NOT NULL,
+  `real_name` varchar(16) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `desc` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `u_user_details_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `u_user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `u_user_details`
+--
+
+LOCK TABLES `u_user_details` WRITE;
+/*!40000 ALTER TABLE `u_user_details` DISABLE KEYS */;
+/*!40000 ALTER TABLE `u_user_details` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -321,4 +379,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-05 14:26:14
+-- Dump completed on 2022-01-05 20:51:35

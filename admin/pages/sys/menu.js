@@ -20,7 +20,6 @@ export default function Menu() {
         setForm({add: add})
         if (!add) {
             const {data} = await getMenuById(id)
-            if (resBaseCode(data)) return
             setForm({...data.normal_data})
         }
         setShow(true)

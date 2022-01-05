@@ -37,9 +37,9 @@ export const isEmpty = (value) => {
 }
 export const resBaseCode = (data, tid) => {
     if (!data) return true
-    const {code, msg} = data
+    const {code, message} = data
     if (code === 0) return false
-    return resCodeShowMsg(code, msg, tid)
+    return resCodeShowMsg(code, message, tid)
 }
 export const resCodeShowMsg = (code, msg, tid) => {
     if (isEmpty(tid)) {
@@ -65,6 +65,9 @@ export const resCodeShowMsg = (code, msg, tid) => {
                 toast.warning(msg, {autoClose: warningTime})
                 Router.push('/login')
                 return true
+            default:
+                toast.error(msg, {autoClose: errorTime})
+                return true
         }
     } else {
         switch (code) {
@@ -88,6 +91,9 @@ export const resCodeShowMsg = (code, msg, tid) => {
             case -2:
                 toast.update(tid, {autoClose: warningTime, render: msg, type: 'warning', isLoading: false})
                 Router.push('/login')
+                return true
+            default:
+                toast.update(tid, {autoClose: errorTime, render: msg, type: "error", isLoading: false})
                 return true
         }
     }

@@ -20,7 +20,7 @@ export default function Api() {
         setForm({add: add})
         if (!add) {
             const {data} = await getApiById(id)
-            if (resBaseCode(data)) return
+
             setForm({...data.normal_data})
         }
         setShow(true)

@@ -20,7 +20,7 @@ export default function User() {
         setForm({add: add})
         if (!add) {
             const {data} = await getUserById(id)
-            if (resBaseCode(data)) return
+
             setForm({...data.normal_data})
         }
         setShow(true)

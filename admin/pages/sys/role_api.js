@@ -35,7 +35,7 @@ export default function RoleApi() {
         setForm({add: add, rid: rid, aid: []})
         if (!add) {
             const {data} = await getRoleApiById(id)
-            if (resBaseCode(data)) return
+
             setForm({...data.normal_data})
         }
         setShow(true)

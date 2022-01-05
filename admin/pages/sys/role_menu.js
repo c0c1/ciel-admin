@@ -35,7 +35,7 @@ export default function RoleMenu() {
         setForm({add: add, rid: rid, mid: []})
         if (!add) {
             const {data} = await getRoleMenuById(id)
-            if (resBaseCode(data)) return
+
             setForm({...data.normal_data})
         }
         setShow(true)

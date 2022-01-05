@@ -21,7 +21,7 @@ export default function Admin() {
         setForm({add: add})
         if (!add) {
             const {data} = await getAdminById(id)
-            if (resBaseCode(data)) return
+
             setForm({...data.normal_data, ex1: false})
         }
         setShow(true)
