@@ -1,12 +1,11 @@
 package res
 
 import (
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
-)
-
-var (
-	codeErr = -1
+	"interface/internal/consts"
 )
 
 type DataRes struct {
@@ -21,7 +20,12 @@ func OkData(data interface{}) (*DataRes, error) {
 }
 
 func ErrMsg(msg string, c *ghttp.Request) {
-	Json(c, codeErr, msg)
+	Json(c, gcode.CodeNil.Code(), msg)
+	c.Exit()
+}
+func ErrNotAuth(c *ghttp.Request) {
+	err := consts.ErrAuth
+	Json(c, (err).(*gerror.Error).Code().Code(), err.Error())
 	c.Exit()
 }
 
@@ -31,8 +35,8 @@ func Json(r *ghttp.Request, code int, message string, data ...interface{}) {
 		responseData = data[0]
 	}
 	r.Response.WriteJson(g.Map{
-		"code": code,
-		"msg":  message,
-		"data": responseData,
+		"code":    code,
+		"message": message,
+		"data":    responseData,
 	})
 }

@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/glog"
 	"github.com/gogf/gf/v2/os/gsession"
 )
@@ -66,19 +65,4 @@ func (s *session) Logout(session *gsession.Session) {
 	if err := session.Close(); err != nil {
 		glog.Error(nil, err.Error())
 	}
-}
-
-func (s *session) CheckPath(rid int64, uri string, method string) bool {
-	if uri == "/" {
-		return true
-	}
-	count, _ := g.DB().Model("s_role t1").
-		LeftJoin("s_role_api t2 on t1.id = t2.rid").
-		LeftJoin("s_api t3 on t2.aid = t3.id").
-		Where("t3.url = ? and t3.method = ? and t1.id = ?  ", uri, method, rid).
-		Count()
-	if count == 1 {
-		return false
-	}
-	return true
 }
