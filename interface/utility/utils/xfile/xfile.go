@@ -6,7 +6,6 @@ type TemplateConfig struct {
 	EntityName    string // LoginLog
 	PathService   string // /home/howl/learn/ciel-admin/interface/internal/service
 	PathApi       string // /home/howl/learn/ciel-admin/interface/apiv1
-	PathHandler   string // /home/howl/learn/ciel-admin/interface/internal/handler
 	PathCmd       string // /home/howl/learn/ciel-admin/interface/internal/cmd/admin.go
 	PathDataFetch string // /home/howl/learn/ciel-admin/admin/data
 	PathIndex     string // /home/howl/learn/ciel-admin/admin/pages

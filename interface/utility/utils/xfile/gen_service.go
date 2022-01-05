@@ -71,7 +71,7 @@ func (s *$name$) Put(ctx context.Context, data entity.$Name$) error {
 `
 
 func genService(c TemplateConfig) {
-	create, err := gfile.Create(fmt.Sprint(c.RootPath + c.PathService + "/" + c.FileName + ".go"))
+	create, err := gfile.Create(fmt.Sprint(c.RootPath + "/interface/internal/service/" + c.FileName + ".go"))
 	if err != nil {
 		panic(err)
 	}

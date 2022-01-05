@@ -49,8 +49,6 @@ func TestGen(t *testing.T) {
 		RootPath:      "/home/howl/learn/ciel-admin",
 		FileName:      "u_user_details",
 		EntityName:    "UserDetails",
-		PathService:   "/interface/internal/service",
-		PathHandler:   "/interface/internal/handler",
 		PathCmd:       "/interface/internal/cmd/admin.go",
 		PathApi:       "/interface/apiv1/user_api.go",
 		PathDataFetch: "/admin/data/user.js", // 如果文件不存在请先创建

@@ -57,7 +57,7 @@ func (h *$name$) Put(ctx context.Context, p *apiv1.$Name$Req) (*res.DataRes, err
 `
 
 func genHandler(c TemplateConfig) {
-	file, err := gfile.Create(fmt.Sprint(c.RootPath + c.PathHandler + "/" + c.FileName + ".go"))
+	file, err := gfile.Create(fmt.Sprint(c.RootPath + "/interface/internal/handler/" + c.FileName + ".go"))
 	if err != nil {
 		panic(err)
 	}
