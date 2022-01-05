@@ -62,3 +62,10 @@ export const delFile = (id) => axios.delete(`${Server}/file/del?id=${id}`, {head
 export const updateFile = (data) => axios.put(`${Server}/file/update`, data, {headers: {'token': token()}}).then(res => res.data)
 export const getFileById = (id) => axios.get(`${Server}/file/getById?id=${id}`, {headers: {'token': token()}}).then(res => res.data)
 export const uploadFile = (data) => axios.post(`${Server}/file/upload`, data, {headers: {'token': token()}}).then(res => res.data)
+
+//icon
+export const iconFetcher = ({url, params}) => axios.get(url, {params: params, headers: {'token': token()}}).then(res => res.data)
+export const addIcon = (data) => axios.post(`${Server}/icon/add`, data, {headers: {'token': token()}}).then(res => res.data)
+export const delIcon = (id) => axios.delete(`${Server}/icon/del?id=${id}`, {headers: {'token': token()}}).then(res => res.data)
+export const updateIcon = (data) => axios.put(`${Server}/icon/update`, data, {headers: {'token': token()}}).then(res => res.data)
+export const getIconById = (id) => axios.get(`${Server}/icon/getById?id=${id}`, {headers: {'token': token()}}).then(res => res.data)

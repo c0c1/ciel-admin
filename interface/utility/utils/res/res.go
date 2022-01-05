@@ -6,14 +6,9 @@ import (
 )
 
 var (
-	codeOK     = 0
-	codeErr    = -1
-	successMsg = "操作成功 success"
-	failedMsg  = "操作失败 failed"
-	codeAuth   = -2
+	codeErr = -1
 )
 
-// DataRes 数据返回通用JSON数据结构
 type DataRes struct {
 	NormalData interface{} `json:"normal_data"`
 }

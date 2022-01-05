@@ -96,11 +96,11 @@ export const Layout = ({children, dark, setDark, theme}) => {
                                     <ListItemText primary={item.name}/>
                                 </ListItem>)}
                             </List>
+                            <Divider/>
                         </Collapse>
                     </div>)
                 })}
             </List>
-            <Divider/>
         </Drawer>
         <Box component="main" sx={{flexGrow: 1, p: 3}}> <DrawerHeader/>
             {children}

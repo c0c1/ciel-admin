@@ -139,6 +139,33 @@ INSERT INTO `s_file` (`id`, `name`, `group`, `status`, `created_at`, `updated_at
 UNLOCK TABLES;
 
 --
+-- Table structure for table `s_icon`
+--
+
+DROP TABLE IF EXISTS `s_icon`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `s_icon` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `content` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` int DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Sys icon';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `s_icon`
+--
+
+LOCK TABLES `s_icon` WRITE;
+/*!40000 ALTER TABLE `s_icon` DISABLE KEYS */;
+INSERT INTO `s_icon` (`id`, `content`, `status`, `created_at`, `updated_at`) VALUES (1,'FaceRetouchingNa',1,'2022-01-05 13:56:01','2022-01-05 13:58:04'),(2,'FaceIcon',1,'2022-01-05 13:58:47','2022-01-05 13:58:47'),(3,'ListAltIcon',1,'2022-01-05 13:58:54','2022-01-05 13:58:54'),(4,'LiquorIcon',1,'2022-01-05 13:59:39','2022-01-05 13:59:39'),(5,'BrandingWatermarkIcon',1,'2022-01-05 13:59:55','2022-01-05 14:00:59'),(6,'BadgeIcon',1,'2022-01-05 14:01:07','2022-01-05 14:01:07'),(7,'AutoFixHighIcon',1,'2022-01-05 14:01:15','2022-01-05 14:01:15'),(8,'AddRoadIcon',1,'2022-01-05 14:02:35','2022-01-05 14:02:35'),(9,'FormatListNumberedIcon',1,'2022-01-05 14:02:44','2022-01-05 14:02:44'),(10,'AlignHorizontalLeftIcon',1,'2022-01-05 14:02:54','2022-01-05 14:02:54'),(11,'SavingsIcon',1,'2022-01-05 14:03:04','2022-01-05 14:03:04'),(12,'AttachMoneyIcon',1,'2022-01-05 14:03:16','2022-01-05 14:03:16'),(13,'PaidIcon',1,'2022-01-05 14:03:25','2022-01-05 14:03:25'),(14,'CreditCardIcon',1,'2022-01-05 14:03:32','2022-01-05 14:03:32'),(15,'AccountBalanceIcon',1,'2022-01-05 14:03:39','2022-01-05 14:03:39'),(16,'FormatListNumberedRtlIcon',1,'2022-01-05 14:03:44','2022-01-05 14:03:44'),(17,'PeopleIcon',1,'2022-01-05 14:03:56','2022-01-05 14:03:56'),(18,'QuestionAnswerIcon',1,'2022-01-05 14:04:00','2022-01-05 14:04:00'),(19,'LocalAtmIcon',1,'2022-01-05 14:04:05','2022-01-05 14:04:05'),(20,'AccountBalanceWalletIcon',1,'2022-01-05 14:04:11','2022-01-05 14:04:11'),(21,'AttachFileIcon',1,'2022-01-05 14:04:18','2022-01-05 14:04:18'),(22,'MenuBookIcon',1,'2022-01-05 14:04:24','2022-01-05 14:04:24'),(23,'SupervisorAccountIcon',1,'2022-01-05 14:04:33','2022-01-05 14:04:33'),(24,'ContactPageIcon',1,'2022-01-05 14:04:40','2022-01-05 14:04:40'),(25,'ListIcon',1,'2022-01-05 14:04:47','2022-01-05 14:04:47'),(26,'MenuIcon',1,'2022-01-05 14:04:53','2022-01-05 14:04:53'),(27,'SettingsIcon',1,'2022-01-05 14:04:58','2022-01-05 14:04:58');
+/*!40000 ALTER TABLE `s_icon` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `s_menu`
 --
 
@@ -157,7 +184,7 @@ CREATE TABLE `s_menu` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=322 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=325 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,7 +193,7 @@ CREATE TABLE `s_menu` (
 
 LOCK TABLES `s_menu` WRITE;
 /*!40000 ALTER TABLE `s_menu` DISABLE KEYS */;
-INSERT INTO `s_menu` (`id`, `pid`, `name`, `path`, `icon`, `type`, `sort`, `status`, `created_at`, `updated_at`) VALUES (2,34,'菜单','/sys/menu','MenuIcon',0,1.10,1,'2021-12-03 10:19:33','2021-12-06 23:14:57'),(3,34,'API','/sys/api','ListIcon',0,1.20,1,'2021-12-03 10:19:36','2021-11-23 10:13:47'),(4,34,'角色','/sys/role','ContactPageIcon',0,1.30,1,'2021-12-03 10:19:36','2021-12-06 23:14:51'),(5,34,'管理员','/sys/admin','SupervisorAccountIcon',0,1.40,1,'2021-12-03 10:19:36','2021-12-06 23:15:04'),(6,34,'字典','/sys/dict','MenuBookIcon',0,1.50,1,'2021-12-03 10:19:36','2021-12-06 23:15:11'),(7,34,'文件','/sys/file','AttachFileIcon',0,1.60,1,'2021-12-03 10:19:36','2021-12-06 23:15:18'),(34,-1,'系统','','SettingsIcon',1,1.00,1,'2021-12-03 10:19:36','2021-12-06 23:14:37'),(229,34,'Divider','','',2,1.41,1,'2021-12-03 10:19:36','2021-12-04 15:45:54');
+INSERT INTO `s_menu` (`id`, `pid`, `name`, `path`, `icon`, `type`, `sort`, `status`, `created_at`, `updated_at`) VALUES (2,34,'菜单','/sys/menu','MenuIcon',0,1.10,1,'2021-12-03 10:19:33','2021-12-06 23:14:57'),(3,34,'API','/sys/api','ListIcon',0,1.20,1,'2021-12-03 10:19:36','2021-11-23 10:13:47'),(4,34,'角色','/sys/role','ContactPageIcon',0,1.30,1,'2021-12-03 10:19:36','2021-12-06 23:14:51'),(5,34,'管理员','/sys/admin','SupervisorAccountIcon',0,1.40,1,'2021-12-03 10:19:36','2021-12-06 23:15:04'),(6,34,'字典','/sys/dict','MenuBookIcon',0,1.50,1,'2021-12-03 10:19:36','2021-12-06 23:15:11'),(7,34,'文件','/sys/file','AttachFileIcon',0,1.60,1,'2021-12-03 10:19:36','2021-12-06 23:15:18'),(34,-1,'系统','','SettingsIcon',1,1.00,1,'2021-12-03 10:19:36','2021-12-06 23:14:37'),(229,34,'Divider','','',2,1.41,1,'2021-12-03 10:19:36','2021-12-04 15:45:54'),(322,-1,'用户','','SupervisorAccountIcon',1,2.00,1,'2022-01-05 13:22:07','2022-01-05 14:14:29'),(323,322,'用户列表','/user/user','MenuIcon',0,2.10,1,'2022-01-05 13:23:03','2022-01-05 14:25:25'),(324,34,'图标','/sys/icon','FaceRetouchingNa',0,1.70,1,'2022-01-05 13:35:10','2022-01-05 14:14:09');
 /*!40000 ALTER TABLE `s_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,7 +267,7 @@ CREATE TABLE `s_role_menu` (
   KEY `rid` (`rid`,`mid`),
   CONSTRAINT `s_role_menu_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `s_menu` (`id`) ON DELETE CASCADE,
   CONSTRAINT `s_role_menu_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `s_role` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=234 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,8 +276,40 @@ CREATE TABLE `s_role_menu` (
 
 LOCK TABLES `s_role_menu` WRITE;
 /*!40000 ALTER TABLE `s_role_menu` DISABLE KEYS */;
-INSERT INTO `s_role_menu` (`id`, `rid`, `mid`) VALUES (121,8,2),(122,8,3),(123,8,4),(124,8,5),(125,8,6),(182,8,7),(141,8,34),(146,8,229),(226,9,2),(227,9,3),(228,9,4),(229,9,5),(230,9,6),(231,9,7),(232,9,34),(233,9,229);
+INSERT INTO `s_role_menu` (`id`, `rid`, `mid`) VALUES (121,8,2),(122,8,3),(123,8,4),(124,8,5),(125,8,6),(182,8,7),(141,8,34),(146,8,229),(234,8,322),(235,8,323),(236,8,324),(226,9,2),(227,9,3),(228,9,4),(229,9,5),(230,9,6),(231,9,7),(232,9,34),(233,9,229);
 /*!40000 ALTER TABLE `s_role_menu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `u_user`
+--
+
+DROP TABLE IF EXISTS `u_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `u_user` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `uname` varchar(16) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pwd` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nickname` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `status` int DEFAULT '1',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uname` (`uname`),
+  UNIQUE KEY `uname_2` (`uname`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `u_user`
+--
+
+LOCK TABLES `u_user` WRITE;
+/*!40000 ALTER TABLE `u_user` DISABLE KEYS */;
+INSERT INTO `u_user` (`id`, `uname`, `pwd`, `nickname`, `icon`, `status`, `created_at`, `updated_at`) VALUES (1,'2','2','2','2',1,'2022-01-05 14:24:29','2022-01-05 06:24:45');
+/*!40000 ALTER TABLE `u_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -262,4 +321,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-04 21:01:05
+-- Dump completed on 2022-01-05 14:26:14

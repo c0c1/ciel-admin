@@ -68,3 +68,9 @@ type FileReq struct {
 	PageSize int `d:"10"`
 	entity.File
 }
+
+type IconReq struct {
+	Page     int `d:"1"`
+	PageSize int `d:"10"`
+	entity.Icon
+}

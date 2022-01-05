@@ -31,7 +31,9 @@ gfcli:
   gen:
     dao:
       - link: "mysql:ciel:hPCTACjHDxdAZebn@tcp(127.0.0.1:3306)/ciel"
-        tables: "s_admin,s_api,s_menu,s_role,s_role_api,s_role_menu,s_dict,s_file"
-        removePrefix: "s_"
+        tables: "s_admin,s_api,s_menu,s_role,s_role_api,s_role_menu,s_dict,s_file,s_icon,
+        u_user,
+        "
+        removePrefix: "s_,u_"
         descriptionTag: true
         noModelComment: true

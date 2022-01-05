@@ -27,7 +27,7 @@ function MyApp({Component, pageProps: {pageProps}, router}) {
     if (router.route === '/login') return <> <Component {...pageProps} /></>
     return <ThemeProvider theme={theme}>
         <Layout dark={dark} setDark={handleSetDark} theme={theme}> <Component {...pageProps} userInfo={u}/> </Layout>
-        <ToastContainer position={'top-center'} theme={dark}/>
+        <ToastContainer position={'top-center'} theme={dark ? 'dark' : 'light'}/>
     </ThemeProvider>
 }
 

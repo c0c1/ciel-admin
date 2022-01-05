@@ -89,4 +89,23 @@ func SysRouters(s *ghttp.Server) {
 		g.PUT("/update", handler.File.Put)
 		g.DELETE("/del", handler.File.Del)
 	})
+
+	s.Group("/icon", func(g *ghttp.RouterGroup) {
+		g.Middleware(middleware.Auth)
+		g.GET("/list", handler.Icon.List)
+		g.GET("/getById", handler.Icon.GetById)
+		g.Middleware(middleware.LockAction)
+		g.POST("/add", handler.Icon.Add)
+		g.PUT("/update", handler.Icon.Put)
+		g.DELETE("/del", handler.Icon.Del)
+	})
+	s.Group("/user", func(g *ghttp.RouterGroup) {
+		g.Middleware(middleware.Auth)
+		g.GET("/list", handler.User.List)
+		g.GET("/getById", handler.User.GetById)
+		g.Middleware(middleware.LockAction)
+		g.POST("/add", handler.User.Add)
+		g.PUT("/update", handler.User.Put)
+		g.DELETE("/del", handler.User.Del)
+	})
 }
