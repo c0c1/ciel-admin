@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Server} from "../config";
+import {LoginUrl, Server} from "../config";
 import {token} from "../utils/util";
 import Router from "next/router";
 
