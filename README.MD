@@ -172,7 +172,7 @@ const DefaultPage = ({
         {data, mutate} = useSWR({url: `/${urlPrefix}/list`, params: params}, fetcher),
         // 返回数据
         {currPage, list, totalPage, totalCount} = data ? data.data : ""
-    // 到用到 query时将查询参数添加到 params中
+    // 用到 query时将查询参数添加到 params中
     useEffect(() => setParams({...params, ...query}), [query])
     // 搜索操作
     const onSearch = () => setParams(paramsTemp),
