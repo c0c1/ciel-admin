@@ -23,7 +23,7 @@ ciel-admin 是一个简洁的后台管理系统，提供了简单的权限管理
 使用到的技术如下
 
 - 前端 react,next.js,axios,bootstrap,swr,react-toastify,node-sass
-- 后端 goframe 2.0
+- 后端 goframe v2
 
 真的追求简洁，一个表的CURD 前端+后端代码不到100行。例如菜单页面
 
