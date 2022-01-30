@@ -1,6 +1,6 @@
 # ciel_admin
 
-锲而舍之朽木不折，锲而不舍金石可镂
+锲而舍之朽木不折，锲而不舍金石可镂。
 
 登录页面 <br>
 ![img](document/login.png)
