@@ -37,7 +37,7 @@ const Menu = () => <DefaultPage
         {field: 'name', search: 1},                 // search: 是否搜索
         {field: 'sort', type: 'number', step: '0.1', detailsDesc: "请给一个排序"}, // detailsDesc  input框的简要说明
         {
-            field: 'type', title: '类型', search: 1, type: "select",   
+            field: 'type', title: '类型', search: 1, type: "select",
             items: [
                 {
                     label: 'group',     // 可选时的标签
@@ -130,7 +130,16 @@ func (c *menu) GetById(r *ghttp.Request) {
 
 当然简洁的背后，主要在于将相同的操作都分装在了两个文件中。
 
+## 项目结构
+
+```text
+- interface  后台项目 (goFrame v2)
+- admin      前台项目 (nextJs)
+```
+
 ## 前端主要文件 defaultPage.js
+
+该组件直接调用。如果您对页面有大的修改需求，拷贝该文件到新的进行修改即可。
 
 ```js
 // defaultPage
@@ -451,3 +460,11 @@ func Update(ctx context.Context, table string, id, data interface{}) error {
 }
 
 ```
+
+## 主要框架使用
+
+- GoFrame  https://goframe.org/display/gf
+- React https://reactjs.org/
+- nextjs https://nextjs.org/
+- SWR https://swr.vercel.app/zh-CN/docs/getting-started
+
