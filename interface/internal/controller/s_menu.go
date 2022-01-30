@@ -15,6 +15,22 @@ type menu struct {
 	table string
 }
 
+func (c *menu) List(r *ghttp.Request) {
+	page, size := res.GetPage(r)
+	total, data := service.List(gctx.New(), service.SearchConf{
+		Table: c.table,
+		Page:  page, Size: size,
+		Conditions: []*service.Condition{
+			{Field: "id", Value: r.GetQuery("id")},
+			{Field: "pid", Value: r.GetQuery("pid")},
+			{Field: "type", Value: r.GetQuery("type")},
+			{Field: "status", Value: r.GetQuery("status")},
+			{Field: "name", Value: r.GetQuery("name"), Like: true},
+		},
+		OrderBy: "sort desc,id desc",
+	})
+	res.OkPage(data, total, page, size, r)
+}
 func (c *menu) Add(r *ghttp.Request) {
 	var d entity.Menu
 	_ = r.Parse(&d)
@@ -43,21 +59,4 @@ func (c *menu) Put(r *ghttp.Request) {
 func (c *menu) GetById(r *ghttp.Request) {
 	data, _ := service.GetById(gctx.New(), c.table, xparam.ID(r))
 	res.OKData(data, r)
-}
-
-func (c *menu) List(r *ghttp.Request) {
-	page, size := res.GetPage(r)
-	total, data := service.List(gctx.New(), service.SearchConf{
-		Table: c.table,
-		Page:  page, Size: size,
-		Conditions: []*service.Condition{
-			{Field: "id", Value: r.GetQuery("id")},
-			{Field: "pid", Value: r.GetQuery("pid")},
-			{Field: "type", Value: r.GetQuery("type")},
-			{Field: "status", Value: r.GetQuery("status")},
-			{Field: "name", Value: r.GetQuery("name"), Like: true},
-		},
-		OrderBy: "sort desc,id desc",
-	})
-	res.OkPage(data, total, page, size, r)
 }

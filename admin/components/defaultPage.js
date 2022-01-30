@@ -19,7 +19,8 @@ const DefaultPage = ({
         update = async (data) => request({url: `/${urlPrefix}/update`, method: 'put', data}),
         add = async (data) => request({url: `/${urlPrefix}/add`, method: 'post', data}),
         del = async (id) => request({url: `/${urlPrefix}/del?id=${id}`, method: 'delete'})
-    const [params, setParams] = useState({...defaultPageParam, ...query}), [paramsTemp, setParamsTemp] = useState(params),
+    const [params, setParams] = useState({...defaultPageParam, ...query}),
+        [paramsTemp, setParamsTemp] = useState(params),
         [details, setDetails] = useState({showType: "main"}),
         {data, mutate} = useSWR({url: `/${urlPrefix}/list`, params: params}, fetcher),
         {currPage, list, totalPage, totalCount} = data ? data.data : ""
@@ -30,8 +31,8 @@ const DefaultPage = ({
         onKeyDown = (e) => (e.key === 'Enter') ? params.page = 1 && onSearch() : "",
         onDelete = async (id) => (confirm("Are you sure?")) ? await del(id) && toast('ok') && mutate() : "",
         onSubmit = async () => {
-            let {code, msg} = details.showType == "update" ? await update(details) : await add(details)
-            if (code == 0) {
+            let {code, msg} = details.showType === "update" ? await update(details) : await add(details)
+            if (code === 0) {
                 toast(msg)
                 mutate()
                 setDetails({showType: "main"})
