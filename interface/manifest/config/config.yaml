@@ -4,7 +4,7 @@ server:
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
   jwtExpireDuration: "7D"
-  rootFilePath: "/home/howl/learn/freekey/interface/resource/public/resource/upload"
+  rootFilePath: "/home/howl/learn/test/ciel-admin/interface/resource/public/resource/upload"
 
 logger:
   level: "all"
@@ -16,7 +16,7 @@ database:
     level: "all"
     stdout: true
   default:
-    link: "mysql:freekey:yiNa6phkynDmrpK6@tcp(127.0.0.1:3306)/freekey"
+    link: "mysql:ciel_admin:123456@tcp(127.0.0.1:3306)/ciel_admin"
     debug: true
 
 redis:
@@ -28,11 +28,8 @@ redis:
 gfcli:
   gen:
     dao:
-      - link: "mysql:freekey:yiNa6phkynDmrpK6@tcp(127.0.0.1:3306)/freekey"
-        tables: "s_admin,s_api,s_menu,s_role,s_role_api,s_role_menu,s_dict,s_file,
-        b_book,b_book_category,b_book_chapter,b_book_content,b_writer,
-        t_time_history,
-        "
-        removePrefix: "s_,u_,b_,t_"
+      - link: "mysql:ciel_admin:123456@tcp(127.0.0.1:3306)/ciel_admin"
+        tables: "s_admin,s_api,s_menu,s_role,s_role_api,s_role_menu,s_dict,s_file"
+        removePrefix: "s_"
         descriptionTag: true
         noModelComment: true

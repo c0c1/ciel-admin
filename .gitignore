@@ -37,16 +37,19 @@ interface/.hgignore.swp
 interface/.project
 interface/.orig
 interface/.swp
+interface/.idea/
 interface/.settings/
-interface/.vscode/
-interface/vender/
-interface/log/
+interface.vscode/
+interface/vendor/
 interface/composer.lock
 interface/gitpush.sh
+interface/pkg/
 interface/bin/
 interface/cbuild
-*/.DS_Store
-interface/gf-empty
-interface/go.sum
+**/.DS_Store
+interface/.vscode/
+interface/.test/
 interface/main
+interface/output/
+interface/manifest/output/
 

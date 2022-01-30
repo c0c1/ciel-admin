@@ -1,6 +1,3 @@
-### get api
-GET {{url}}/api/list?desc=2
-
 ### Upload img
 POST {{url}}/file/upload
 Authorization: {{token}}
