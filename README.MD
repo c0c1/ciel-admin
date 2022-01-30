@@ -135,7 +135,7 @@ func (c *menu) GetById(r *ghttp.Request) {
 - admin      前台项目 (nextJs)
 ```
 
-## 简洁的背后
+## 主要文件
 
 当然简洁的背后，主要在于将相同的操作都分装在了两个文件中。 前端:`defaultPage.js`  后端:`a_service.go`
 
