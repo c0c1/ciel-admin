@@ -17,9 +17,7 @@ func NewRoleApi() *roleApi {
 	return &a
 }
 
-func (s *roleApi) List(page, size int, p *entity.RoleApi) (int, gdb.List) {
-	rid := p.Rid
-	aid := p.Aid
+func (s *roleApi) List(page, size int, rid, aid int) (int, gdb.List) {
 	db := g.DB().Model(dao.RoleApi.Table() + " t1").
 		LeftJoin(dao.Role.Table() + " t2 on t2.id = t1.rid").
 		LeftJoin(dao.Api.Table() + " t3 on t3.id = t1.aid")
@@ -48,26 +46,6 @@ func (s *roleApi) Add(ctx context.Context, rid int, aids []int) error {
 		})
 	}
 	if _, err := dao.RoleApi.Ctx(ctx).Batch(len(aids)).Replace(d); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *roleApi) Del(ctx context.Context, id uint64) error {
-	_, err := dao.RoleApi.Ctx(ctx).Delete("id", id)
-	return err
-}
-
-func (s *roleApi) GetById(ctx context.Context, id uint64) (gdb.Record, error) {
-	one, err := dao.RoleApi.Ctx(ctx).One("id", id)
-	if err != nil {
-		return nil, err
-	}
-	return one, err
-}
-
-func (s *roleApi) Put(ctx context.Context, data entity.RoleApi) error {
-	if _, err := dao.RoleApi.Ctx(ctx).Update(data, "id", data.Id); err != nil {
 		return err
 	}
 	return nil

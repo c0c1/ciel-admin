@@ -1,131 +1,146 @@
-import useSWR from "swr";
+import request from "../../utils/request";
+import {defaultPageParam, imgPrefix} from "../../data/const";
 import {useState} from "react";
+import useSWR from "swr";
 import {toast} from "react-toastify";
-import {ButtonGroup, Card, CardContent, CardHeader, TableCell, TableRow, TextField} from "@mui/material";
-import {PageCardActions, PageDataBtn, PageDataStatus, PageDialog, PageOptionStatus, PageSearchBtn, PageStatusOption, PageTable} from "../../components/page";
-import {ConfirmMsg, DefaultPageParam, LoadingMsg} from "../../consts/const";
-import {isEmpty, resBaseCode, resCodeShowMsg} from "../../utils/util";
-import {ImgPrefix, Server} from "../../config";
-import {delFile, fileFetcher, getFileById, updateFile, uploadFile} from "../../data/sys";
+import Meta from "../../components/meta";
+import {Nav} from "../../components/nav";
+import {SearchLi} from "../../components/searchLi";
+import {TableTd} from "../../components/tableTd";
+import {TableFooter} from "../../components/table";
+import {DetailsLi2} from "../../components/detailsLi";
 
-const groups = [{label: '文件', value: 'file'}, {label: '头像', value: 'icon'}, {label: '视频', value: 'video'}, {label: '音频', value: 'audio'}, {label: '其他', value: 'other'},]
-export default function File() {
-    const [params, setParams] = useState({...DefaultPageParam, name: '', group: ''})
-    const [form, setForm] = useState({add: true})
-    const [show, setShow] = useState(false);
-    const {data, mutate} = useSWR({url: `${Server}/file/list`, params: params}, fileFetcher)
-    if (resBaseCode(data)) return <div/>
-    const handleClose = () => setShow(false);
-    const handleChange = (e, name) => {
-        if (name === 'files') {
-            setForm({...form, [name]: e.target.files})
-            return
-        }
-        setForm({...form, [name]: e.target.value})
-    }
-    const handleShow = async (add, id) => {
-        setForm({add: add})
-        if (!add) {
-            const {data} = await getFileById(id)
-
-            setForm({...data.normal_data})
-        }
-        setShow(true)
-    }
-    const handleSubmit = async () => {
-        if (isEmpty(form.group)) return toast.warning('分组不能为空')
-        if (isEmpty(form.files)) return toast.warning('文件不能为空')
-        const tid = toast.loading(LoadingMsg);
-        if (form.add) {
-            let formData = new FormData();
-            for (let i = 0; i < form.files.length; i++) {
-                formData.append("files", form.files[i])
+const fields = [
+    {field: 'id', editHidden: 1},
+    {field: 'name'},
+    {
+        field: 'group', search: 1, type: 'select', items: [
+            {label: 'img', value: 1},
+            {label: 'icon', value: 2},
+            {label: 'file', value: 3},
+            {label: 'other', value: 4},
+        ]
+    },
+    {
+        field: 'status', type: 'select', items: [
+            {label: 'yes', value: 1}, {label: 'no', value: 2}
+        ]
+    },
+    {field: 'created_at', editHidden: 1},
+]
+const urlPrefix = "file"
+const name = 'File'
+const File = () => {
+    const fetcher = async ({url, params}) => request({url: url, method: 'get', params}),
+        update = async (data) => request({url: `/${urlPrefix}/update`, method: 'put', data}),
+        del = async (id) => request({url: `/${urlPrefix}/del?id=${id}`, method: 'delete'}),
+        uploadFile = async (data) => request({url: `/file/upload`, method: 'post', data})
+    const [params, setParams] = useState({...defaultPageParam}), [paramsTemp, setParamsTemp] = useState(params),
+        [details, setDetails] = useState({showType: "main"}),
+        {data, mutate} = useSWR({url: `/${urlPrefix}/list`, params: params}, fetcher),
+        {currPage, list, totalPage, totalCount} = data ? data.data : ""
+    const onSearch = () => setParams(paramsTemp),
+        onChange = (e, name) => setParamsTemp({...paramsTemp, [name]: e.target.value}),
+        onDetailsChange = (e, name) => {
+            if (name === 'files') {
+                setDetails({...details, [name]: e.target.files})
+                return
             }
-            formData.append('group', form.group)
-            const {code, message} = await uploadFile(formData)
-            if (resCodeShowMsg(code, message, tid)) return
-            mutate(data)
-        } else {
-            const {code, message} = await updateFile(form)
-            if (resCodeShowMsg(code, message, tid)) return
-        }
-        mutate(data)
-        handleClose()
-    }
-    const handleDel = async (id) => {
-        if (!confirm(ConfirmMsg)) return
-        const tid = toast.loading(LoadingMsg);
-        const {code, msg} = await delFile(id)
-        if (resCodeShowMsg(code, msg, tid)) return
-        mutate(data)
-        handleClose()
-    }
-    const getGroup = (group) => {
-        switch (group) {
-            case "file":
-                return "文件"
-            case "icon":
-                return "头像"
-            case "video":
-                return '视频'
-            case "audio":
-                return "音频"
-            default:
-                return "其他"
-        }
-    }
-    return (<>
-        <Card elevation={3}>
-            <CardHeader title={'文件'} action={<Search params={params} setParams={setParams} handleShow={handleShow}/>}/>
-            <CardContent><PageTable cellNames={['id', '图片', '文件名', '分组', '状态', '创建时间', '修改时间', '操作']}>
-                {data.data.list.map(item => (<TableRow key={item.id}>
-                    <TableCell>{item.id}</TableCell>
-                    <TableCell><a href={ImgPrefix + '/' + item.name} target="_blank" rel="noreferrer noopener"><img className={'img-fluid'} src={ImgPrefix + '/' + item.name} alt="can't find" style={{width: '25px'}}/></a></TableCell>
-                    <TableCell>{item.name}</TableCell>
-                    <TableCell>{getGroup(item.group)}</TableCell>
-                    <TableCell><PageDataStatus status={item.status}/></TableCell>
-                    <TableCell>{item.created_at}</TableCell>
-                    <TableCell>{item.updated_at}</TableCell>
-                    <TableCell><ButtonGroup variant={'text'}><PageDataBtn handleShow={() => handleShow(false, item.id)} handleDel={() => handleDel(item.id)}/></ButtonGroup></TableCell>
-                </TableRow>))}
-            </PageTable>
-            </CardContent>
-            <PageCardActions setParams={setParams} params={params} data={data}/>
-        </Card>
-        <PageDialog add={form.add} show={show} handleClose={handleClose} handleSubmit={handleSubmit}>
-            <input type={'hidden'} value={form.id}/>
-            <TextField disabled label={'文件名'} autoFocus margin={'dense'} size={'small'} value={form.name || ''} onChange={e => handleChange(e, 'name')} fullWidth/>
-            <TextField label={'分组'} autoFocus margin={'dense'} size={'small'} value={form.group || ''} onChange={e => handleChange(e, 'group')}
-                       select SelectProps={{native: true}}>
-                <option value={''}/>
-                {groups.map(item => <option value={item.value} key={item.value}>{item.label}</option>)}
-            </TextField>
-            <TextField label={'状态'} autoFocus margin={'dense'} size={'small'} value={form.status} onChange={e => handleChange(e, 'status')} select SelectProps={{native: true}}><PageStatusOption/></TextField> <br/>
-            <input hidden={!form.add} type="file" className={'mt-2'} multiple onChange={e => handleChange(e, 'files')}/>
-        </PageDialog>
-    </>)
-}
+            setDetails({...details, [name]: e.target.value})
+        },
+        onKeyDown = (e) => (e.key === 'Enter') ? params.page = 1 && onSearch() : "",
+        onDelete = async (id) => (confirm("Are you sure?")) ? await del(id) && toast('ok') && mutate() : "",
+        onSubmit = async () => {
+            if (!details.group) {
+                toast.error('Group must be chose!')
+                return
+            }
 
-const Search = ({params, setParams, handleShow}) => {
-    const [form, setForm] = useState(params);
-    const handleChange = (e, name) => setForm({...form, [name]: e.target.value})
-    const handleSubmit = () => setParams(form)
-    const handleSearch = () => {
-        form.page = 1
-        setParams(form)
-    }
-    const handleKeyUp = (e) => {
-        form.page = 1
-        if (e.keyCode === 13) handleSubmit()
-    }
-    return (<ButtonGroup className={'d-flex justify-content-between'} variant={'text'}>
-        <TextField label={'文件名'} size={"small"} className={'me-2'} value={form.name} onKeyUp={handleKeyUp} onChange={e => handleChange(e, 'name')}/>
-        <TextField label={'分组'} size={"small"} className={'me-2'} value={form.group || ''} onChange={e => handleChange(e, 'group')}
-                   select SelectProps={{native: true}}>
-            <option value={''}/>
-            {groups.map(item => <option value={item.value} key={item.value}>{item.label}</option>)}
-        </TextField>
-        <TextField label={'状态'} size={"small"} className={'me-2'} value={form.status} onChange={e => handleChange(e, 'status')} select SelectProps={{native: true}}> <PageOptionStatus/></TextField>
-        <PageSearchBtn handleSearch={handleSearch} handleShow={handleShow}/>
-    </ButtonGroup>)
+            if (details.showType == "update") {
+                await update(details)
+            } else {
+                if (!details.files) {
+                    toast.error('Files must be chose!')
+                    return
+                }
+                let forData = new FormData()
+                for (let i = 0; i < details.files.length; i++) {
+                    forData.append('files', details.files[i])
+                }
+                forData.append('group', details.group)
+                await uploadFile(forData)
+            }
+            mutate()
+            toast('ok')
+            setDetails({showType: "main"})
+        }
+    return <>
+        <Meta/>
+        <Nav/>
+        <header className={'hr'}>
+            <h1>{name}</h1>
+            <section>
+                <ul>
+                    {fields.filter(item => item.search).map(item =>
+                        <SearchLi key={item.field}
+                                  field={item.field} type={item.type} items={item.items}
+                                  onChange={onChange} paramsTemp={paramsTemp} onKeyDown={onKeyDown}
+                        />
+                    )}
+                </ul>
+                <ul>
+                    <input type="submit" value={'search'} onClick={() => onSearch()}/>
+                    <input type="submit" value={'add'} onClick={() => setDetails({showType: "add"})}/>
+                </ul>
+            </section>
+        </header>
+        <main className={'hr'} hidden={!(details.showType === "main")}>
+            {!list ? "" : (
+                <table>
+                    <thead>
+                    <tr>
+                        {['id', 'name', 'img', 'group', 'status', 'created_at', 'Operation'].map(item =>
+                            <th key={item}>{item}</th>)}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {list.map(item => <tr key={item.id}>
+                        <TableTd value={item.id}/>
+                        <TableTd value={item.name}/>
+                        <TableTd value={`${imgPrefix}/${item.name}`} type={'img'}/>
+                        <TableTd value={item.group} type={'select'} items={[
+                            {label: 'img', value: 1},
+                            {label: 'icon', value: 2},
+                            {label: 'file', value: 3},
+                            {label: 'other', value: 4},
+                        ]}/>
+                        <TableTd value={item.status} type={'select'} items={[{label: 'yse', value: 1}, {label: 'no', value: 2}]}/>
+                        <TableTd value={item.created_at}/>
+                        <td>
+                            <input type={'submit'} value={'Edit'} onClick={() => setDetails({...item, showType: "update"})}/>
+                            <input type={'submit'} value={'Del'} onClick={() => onDelete(item.id)}/>
+                        </td>
+                    </tr>)}
+                    </tbody>
+                    <TableFooter params={params} setParams={setParams} current={currPage} tCount={totalCount} tPage={totalPage}/>
+                </table>
+            )}
+        </main>
+        <section className={'details'} hidden={!(details.showType === "add" || details.showType === "update")}>
+            <h2>Step1 Set info</h2>
+            <section>
+                <ul>
+                    {fields.filter(item => !item.editHidden).map(item =>
+                        <DetailsLi2 items={item.items} type={item.type} key={item.field} field={item.field} label={item.title} height={item.detailsHeight} placeholder={item.detailsDesc} details={details} onDetailsChange={onDetailsChange}/>
+                    )}
+                    <li hidden={details.showType === 'update'}>文件<input type={"file"} multiple={true} onChange={e => onDetailsChange(e, 'files')}/></li>
+                </ul>
+            </section>
+            <h2>Step2 Go!</h2>
+            <p>Be patient! It may take a little while to finish your request...</p>
+            <input type={'button'} value={'Go Back'} onClick={() => setDetails({...details, showType: "main"})}/>
+            <input type={'button'} value={'Submit'} onClick={onSubmit}/>
+        </section>
+    </>
 }
+export default File

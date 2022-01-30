@@ -4,9 +4,6 @@ nohup.out
 
 # dependencies
 admin/node_modules
-admin/.pnp
-.pnp.js
-
 # testing
 /coverage
 
@@ -51,4 +48,5 @@ interface/cbuild
 */.DS_Store
 interface/gf-empty
 interface/go.sum
+interface/main
 

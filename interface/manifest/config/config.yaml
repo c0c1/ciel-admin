@@ -1,13 +1,10 @@
 server:
-  address: ":1211"
+  address: ":2022"
   serverRoot: "resource/public"
-  dumpRouterMap: true
-  routeOverWrite: true
-  accessLogEnabled: true
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
-  jwtExpireDuration: "1D"
-  rootFilePath: "/home/howl/learn/ciel-admin/interface/resource/public/resource/upload"
+  jwtExpireDuration: "7D"
+  rootFilePath: "/home/howl/learn/freekey/interface/resource/public/resource/upload"
 
 logger:
   level: "all"
@@ -19,21 +16,23 @@ database:
     level: "all"
     stdout: true
   default:
-    link: "mysql:ciel:hPCTACjHDxdAZebn@tcp(127.0.0.1:3306)/ciel"
+    link: "mysql:freekey:yiNa6phkynDmrpK6@tcp(127.0.0.1:3306)/freekey"
     debug: true
 
 redis:
   default:
     address: "127.0.0.1:6379"
-    db: 6
+    db: 1
+
 # CLI.
 gfcli:
   gen:
     dao:
-      - link: "mysql:ciel:hPCTACjHDxdAZebn@tcp(127.0.0.1:3306)/ciel"
-        tables: "s_admin,s_api,s_menu,s_role,s_role_api,s_role_menu,s_dict,s_file,s_icon,
-        u_user,u_login_log,u_user_details
+      - link: "mysql:freekey:yiNa6phkynDmrpK6@tcp(127.0.0.1:3306)/freekey"
+        tables: "s_admin,s_api,s_menu,s_role,s_role_api,s_role_menu,s_dict,s_file,
+        b_book,b_book_category,b_book_chapter,b_book_content,b_writer,
+        t_time_history,
         "
-        removePrefix: "s_,u_"
+        removePrefix: "s_,u_,b_,t_"
         descriptionTag: true
         noModelComment: true

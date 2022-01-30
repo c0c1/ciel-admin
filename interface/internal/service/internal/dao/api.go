@@ -5,8 +5,6 @@
 package dao
 
 import (
-	"context"
-	"interface/internal/model/entity"
 	"interface/internal/service/internal/dao/internal"
 )
 
@@ -14,18 +12,6 @@ import (
 // You can define custom methods on it to extend its functionality as you wish.
 type apiDao struct {
 	*internal.ApiDao
-}
-
-func (d apiDao) Insert(ctx context.Context, data *entity.Api) error {
-	_, err := d.Ctx(ctx).Insert(data)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func (d apiDao) Delete(id int) error {
-	return nil
 }
 
 var (

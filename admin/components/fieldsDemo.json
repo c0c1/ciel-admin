@@ -1,0 +1,19 @@
+[
+  {
+    "field": "status",
+    "title": "状态",
+    "type": "select|textarea",
+    "editHidden": "0|1",
+    "detailsDesc": "请给一个排序",
+    "items": [
+      {
+        "label": "正常",
+        "value": 1
+      },
+      {
+        "label": "禁用",
+        "value": 2
+      }
+    ]
+  }
+]

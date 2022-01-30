@@ -1,34 +1,23 @@
-import '../styles/globals.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import 'react-toastify/dist/ReactToastify.css';
+import '../styles/globals.scss'
 import {ToastContainer} from "react-toastify";
-import {createTheme, ThemeProvider} from "@mui/material";
-import {useEffect, useState} from "react";
-import {Layout} from "../components/Layout";
-import {useUser} from "../components/useUser";
-import Router from "next/router";
+import Footer from "../components/footer";
 
-
-function MyApp({Component, pageProps: {pageProps}, router}) {
-    const {u, loading, loggedOut} = useUser()
-    const [dark, setDark] = useState(true);
-    const theme = createTheme({
-        palette: {mode: dark ? 'dark' : 'light'}
-    })
-    const handleSetDark = () => {
-        setDark(!dark)
-        localStorage.setItem('dark', !dark)
+function MyApp({Component, pageProps, router}) {
+    let pathname = router.pathname;
+    if (pathname === '/login' || pathname === '/') {
+        return <div className={'w'}>
+            <Component {...pageProps} />
+            <ToastContainer position={"bottom-left"} autoClose={2000}/>
+            {/*https://fkhadra.github.io/react-toastify/introduction/*/}
+        </div>
     }
-    useEffect(() => {
-        setDark(localStorage.getItem('dark') === 'true')
-        if (loggedOut) Router.replace('/login')
-    }, [loggedOut, dark])
-    if (loading) return <>loading...</>
-    if (router.route === '/login') return <> <Component {...pageProps} /></>
-    return <ThemeProvider theme={theme}>
-        <Layout dark={dark} setDark={handleSetDark} theme={theme}> <Component {...pageProps} userInfo={u}/> </Layout>
-        <ToastContainer position={'top-center'} theme={dark ? 'dark' : 'light'}/>
-    </ThemeProvider>
+    return <div className={'w'}>
+        <Component {...pageProps} />
+        <ToastContainer position={"bottom-left"} autoClose={2000}/>
+        <Footer/>
+    </div>
 }
 
 export default MyApp

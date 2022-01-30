@@ -4,9 +4,7 @@ import (
 	"context"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
 	"interface/internal/model/bo"
-	"interface/internal/model/entity"
 	"interface/internal/service/internal/dao"
 )
 
@@ -17,47 +15,6 @@ type role struct{}
 func NewRole() *role {
 	a := role{}
 	return &a
-}
-
-func (s *role) List(page, size int, p *entity.Role) (int, gdb.List) {
-	db := g.DB().Model(dao.Role.Table())
-	if p.Id != 0 {
-		db = db.Where("id", p.Id)
-	}
-	count, _ := db.Count()
-	all, _ := db.Limit(size).Offset((page - 1) * size).Order("id desc").All()
-	if all.IsEmpty() {
-		return count, gdb.List{}
-	}
-	return count, all.List()
-}
-
-func (s *role) Add(ctx context.Context, data *entity.Role) error {
-	if _, err := dao.Role.Ctx(ctx).Insert(data); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *role) Del(ctx context.Context, id uint64) error {
-	_, err := dao.Role.Ctx(ctx).Delete("id", id)
-	return err
-}
-
-func (s *role) GetById(ctx context.Context, id uint64) (gdb.Record, error) {
-	one, err := dao.Role.Ctx(ctx).One("id", id)
-	if err != nil {
-		return nil, err
-	}
-	return one, nil
-}
-
-func (s *role) Put(ctx context.Context, data entity.Role) error {
-	data.UpdatedAt = gtime.Now()
-	if _, err := dao.Role.Ctx(ctx).Update(data, "id", data.Id); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (s *role) Menus(rid uint64, pid int) ([]*bo.Menu, error) {

@@ -1,11 +1,10 @@
 package xuser
 
 import (
-	"context"
-	"github.com/gogf/gf/v2/frame/g"
-	"interface/utility/utils/middleware"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"interface/utility/middleware"
 )
 
-func Uid(ctx context.Context) uint64 {
-	return g.RequestFromCtx(ctx).Get(middleware.Uid).Uint64()
+func Uid(r *ghttp.Request) uint64 {
+	return r.Get(middleware.Uid).Uint64()
 }

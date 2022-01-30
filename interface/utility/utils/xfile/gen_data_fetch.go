@@ -9,11 +9,11 @@ import (
 
 var dataFetchTemplate = `
 //$name$
-export const $name$Fetcher = ({url, params}) => axios.get(url, {params: params, headers: {'token': token()}}).then(res => res.data)
-export const add$Name$ = (data) => axios.post(Server+"/$name$/add", data, {headers: {'token': token()}}).then(res => res.data)
-export const del$Name$ = (id) => axios.delete(Server+"/$name$/del?id="+id, {headers: {'token': token()}}).then(res => res.data)
-export const update$Name$ = (data) => axios.put(Server+"/$name$/update", data, {headers: {'token': token()}}).then(res => res.data)
-export const get$Name$ById = (id) => axios.get(Server+"/$name$/getById?id="+id, {headers: {'token': token()}}).then(res => res.data)
+export const $name$Fetcher = ({url, params}) => axios.get(url, {params: params, headers: {'token': token()}}).then(res => res.data).catch(() => Router.push(LoginUrl))
+export const add$Name$ = (data) => axios.post(Server+"/$name$/add", data, {headers: {'token': token()}}).then(res => res.data).catch(() => Router.push(LoginUrl))
+export const del$Name$ = (id) => axios.delete(Server+"/$name$/del?id="+id, {headers: {'token': token()}}).then(res => res.data).catch(() => Router.push(LoginUrl))
+export const update$Name$ = (data) => axios.put(Server+"/$name$/update", data, {headers: {'token': token()}}).then(res => res.data).catch(() => Router.push(LoginUrl))
+export const get$Name$ById = (id) => axios.get(Server+"/$name$/getById?id="+id, {headers: {'token': token()}}).then(res => res.data).catch(() => Router.push(LoginUrl))
 `
 
 func genDataFetch(c TemplateConfig) {

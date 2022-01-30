@@ -2,12 +2,10 @@ package cmd
 
 import (
 	"context"
-	"interface/utility/utils/middleware"
-
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
-	"interface/internal/handler"
+	"interface/utility/middleware"
 )
 
 var (
@@ -18,10 +16,17 @@ var (
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			s := g.Server()
 			s.BindMiddlewareDefault(ghttp.MiddlewareHandlerResponse, middleware.CORS)
-			s.Group("/", func(group *ghttp.RouterGroup) {
-				group.Bind(handler.Hello)
+			s.Group("/", func(g *ghttp.RouterGroup) {
+				g.ALL("/hello", func(r *ghttp.Request) {
+					r.Response.WriteJson(ghttp.DefaultHandlerResponse{
+						Code:    1,
+						Message: "hello",
+						Data:    nil,
+					})
+				})
 			})
 			SysRouters(s)
+			ApiRouters(s)
 			s.Run()
 			return nil
 		},

@@ -17,10 +17,7 @@ func NewRoleMenu() *roleMenu {
 	return &a
 }
 
-func (s *roleMenu) List(page, size int, p *entity.RoleMenu) (int, gdb.List) {
-	rid := p.Rid
-	mid := p.Mid
-
+func (s *roleMenu) List(page, size int, rid uint64, mid int) (int, gdb.List) {
 	db := g.DB().Model(dao.RoleMenu.Table() + " t1").
 		LeftJoin(dao.Role.Table() + " t2 on t1.rid = t2.id").
 		LeftJoin(dao.Menu.Table() + " t3 on t1.mid = t3.id")
@@ -47,26 +44,6 @@ func (s *roleMenu) Add(ctx context.Context, rid int, mids []int) error {
 		}
 	}
 	if _, err := dao.RoleMenu.Ctx(ctx).Batch(len(mids)).Replace(d); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *roleMenu) Del(ctx context.Context, id uint64) error {
-	_, err := dao.RoleMenu.Ctx(ctx).Delete("id", id)
-	return err
-}
-
-func (s *roleMenu) GetById(ctx context.Context, id uint64) (gdb.Record, error) {
-	one, err := dao.RoleMenu.Ctx(ctx).One("id", id)
-	if err != nil {
-		return nil, err
-	}
-	return one, err
-}
-
-func (s *roleMenu) Put(ctx context.Context, data entity.RoleMenu) error {
-	if _, err := dao.RoleMenu.Ctx(ctx).Update(data, "id", data.Id); err != nil {
 		return err
 	}
 	return nil

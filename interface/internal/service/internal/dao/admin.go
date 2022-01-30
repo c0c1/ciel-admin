@@ -5,9 +5,6 @@
 package dao
 
 import (
-	"context"
-	"interface/internal/consts"
-	"interface/internal/model/entity"
 	"interface/internal/service/internal/dao/internal"
 )
 
@@ -15,21 +12,6 @@ import (
 // You can define custom methods on it to extend its functionality as you wish.
 type adminDao struct {
 	*internal.AdminDao
-}
-
-func (d adminDao) FindByUname(ctx context.Context, uname string) (*entity.Admin, error) {
-	var data entity.Admin
-	one, err := d.Ctx(ctx).One("uname", uname)
-	if err != nil {
-		return nil, err
-	}
-	if one.IsEmpty() {
-		return nil, consts.ErrDataNotFound
-	}
-	if err = one.Struct(&data); err != nil {
-		return nil, err
-	}
-	return &data, nil
 }
 
 var (

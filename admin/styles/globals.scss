@@ -1,0 +1,263 @@
+// globals.scss
+
+.details {
+  border-bottom: 1px solid #cccccc;
+
+  section {
+    display: flex;
+
+    ul {
+      li {
+        margin-bottom: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        input, select, textarea {
+          margin-left: 3px;
+        }
+
+        select {
+          min-width: 173px;
+
+          &[multiple] {
+            height: 320px;
+          }
+        }
+
+        textarea {
+          width: 100px;
+        }
+      }
+    }
+  }
+}
+
+// userInfo
+.profile a {
+  color: red;
+}
+
+footer {
+  margin-top: 12px;
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    li > ul {
+      li {
+        padding: 3px;
+        border-right: 1px solid #ccc;
+
+      }
+
+      :last-child {
+        border-right: none;
+      }
+    }
+  }
+}
+
+// table data
+main {
+  position: relative;
+
+  aside {
+    position: absolute;
+    right: 100%;
+    padding-right: 12px;
+  }
+
+  table {
+    thead {
+      tr :last-child { // Operation btn style
+        min-width: 107px;
+      }
+    }
+
+    tbody {
+      td {
+        padding-right: 10px;
+        max-width: 360px;
+        border-bottom: #ccc 1px solid;
+        line-height: 1.7em;
+
+        span {
+          display: -webkit-box !important;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+
+          border-radius: 5px;
+        }
+      }
+    }
+
+    tfoot {
+      ul {
+        padding: 9px 0 0 0;
+        display: flex;
+
+        li {
+          margin: 0 3px;
+          border: 1px solid #e2e2e2;
+          border-radius: 3px;
+          min-width: 30px;
+          text-align: center;
+        }
+
+        a, span {
+          padding: 0 3px;
+          color: #778087;
+        }
+
+        span {
+          margin-left: 2px;
+        }
+      }
+
+    }
+
+  }
+
+  img {
+    max-width: 33px;
+    border-radius: 3px;
+  }
+
+
+}
+
+header {
+  display: flex;
+  align-items: center;
+
+  section {
+    display: flex;
+
+    input[type='text'], select {
+      width: 100px;
+    }
+
+    ul > li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    :last-child { // let search and add btn down
+      align-self: end;
+    }
+  }
+}
+
+nav {
+  margin-top: 26px;
+
+  > ul {
+    display: flex;
+
+    > li {
+      height: 13px;
+      line-height: 13px;
+
+      padding-right: 20px;
+      position: relative;
+
+      a {
+        font-weight: 700;
+        color: #33f;
+
+        &:hover {
+          border-bottom: 3px solid #9b9a9a;
+          color: #000;
+        }
+      }
+
+      &:hover {
+        ul {
+          max-height: 600px;
+          border-bottom: 1px solid #999;
+        }
+      }
+
+      > ul {
+        position: absolute;
+        top: 20px;
+        left: -2px;
+        z-index: 999;
+
+        max-height: 0;
+        background: #fff;
+
+        border-left: 1px solid #999;
+        border-right: 1px solid #999;
+        box-shadow: 3px 3px 3px #ccc;
+
+        overflow: hidden;
+        transition: max-height 0.1s;
+
+        padding: 0;
+
+        li {
+          margin-right: 20px;
+          position: relative;
+          min-width: 10px;
+          line-height: 20px;
+          white-space: nowrap;
+          margin-left: 9px;
+        }
+
+        :last-child {
+          margin-bottom: 7px;
+        }
+      }
+    }
+
+  }
+}
+
+.w {
+  max-width: 800px;
+  margin: 2em auto;
+}
+
+//      -------------------base---------------------
+
+body {
+  font: 0.8em tahoma, sans-serif;
+  //font-family: 'Ubuntu Mono', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+h1 {
+  padding-left: 12px;
+  font-size: 62px;
+  height: 74px;
+}
+
+.hr {
+  border-bottom: 1px #9393ff solid;
+  margin-bottom: 9px;
+}
+
+h2 {
+  color: #6f6fc4;
+  background-color: #fff;
+  //font-family: georgia, serif;
+  font-weight: 400;
+}
+
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
+
+li, a {
+  list-style-type: none;
+  text-decoration: none;
+}
