@@ -141,7 +141,7 @@ func (c *menu) GetById(r *ghttp.Request) {
 
 ### 前端主要文件 defaultPage.js
 
-该组件直接调用。如果您对页面有大的修改需求，拷贝该文件到新的进行修改即可。
+该组件直接调用。如果您对页面有大的修改需求，拷贝该文件到新的页面js文件进行修改即可。
 
 ```js
 // defaultPage
