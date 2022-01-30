@@ -128,8 +128,6 @@ func (c *menu) GetById(r *ghttp.Request) {
 5. 运行前台      : 进入 `admin` 目录运行 `npm install && npm run dev`
 6. 访问 `http://localhost:3000/` 登录 默认用户 `admin` 密码 `1`
 
-当然简洁的背后，主要在于将相同的操作都分装在了两个文件中。
-
 ## 项目结构
 
 ```text
@@ -137,7 +135,11 @@ func (c *menu) GetById(r *ghttp.Request) {
 - admin      前台项目 (nextJs)
 ```
 
-## 前端主要文件 defaultPage.js
+## 简洁的背后
+
+当然简洁的背后，主要在于将相同的操作都分装在了两个文件中。 前端:`defaultPage.js`  后端:`a_service.go`
+
+### 前端主要文件 defaultPage.js
 
 该组件直接调用。如果您对页面有大的修改需求，拷贝该文件到新的进行修改即可。
 
@@ -360,7 +362,7 @@ func (c *menu) GetById(r *ghttp.Request) { // 同上
 }
 ```
 
-### 后端主要文件公共service方法
+### 后端主要文件`a_service.go`
 
 如果没有特殊需求，只需要写 `controller` 和`cmd` 路由注册文件即可，因为所有 `controller` 层都可以调用该通用`service` 方法
 
