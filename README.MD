@@ -54,7 +54,7 @@ const Menu = () => <DefaultPage
         {field: 'path'},
         {field: 'status', type: 'select', items: [{label: 'yes', value: 1}, {label: 'no', value: 2}]},
         {field: 'created_at', editHidden: 1},
-    ]} name={'Menu'} urlPrefix={'menu'}/>
+    ]} name={'Menu'} urlPrefix={'menu'}/> // name为页面名称  urlPrefix 为后台请求前缀
 export default Menu
 ```
 
