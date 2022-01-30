@@ -149,10 +149,10 @@ const DefaultPage = ({
                          name,      //must 页面标题名
                          fields,    //must 字段信息
                          urlPrefix, //must 请求前缀
-                         noEdit,    // option  没有编辑按钮     1没有,0 或不不传则有编辑按钮
+                         noEdit,    // option  没有编辑按钮     1 没有,0 或不不传则有编辑按钮
                          noNav,     // option  没有导航条       同上
                          noSearch,  // option  没有寿搜索按钮   同上
-                         query,     // option  默认查询参数  用法见 Role角色页面
+                         query,     // option  默认查询参数     用法见 Role角色页面
                      }) => {
     // 获取列表请求
     const fetcher = async ({url, params}) => request({url: url, method: 'get', params}),
