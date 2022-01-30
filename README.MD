@@ -264,7 +264,7 @@ export default DefaultPage
 
 #### 路由注册
 
-添加新的数据表时才此文件进行注册
+添加新的数据表时在此文件进行注册
 
 ```go
 package cmd
