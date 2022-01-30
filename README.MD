@@ -29,7 +29,7 @@ ciel-admin 是一个简洁的后台管理系统，提供了简单的权限管理
 
 ### 前端 menu.js
 
-```text
+```js
 const Menu = () => <DefaultPage
     fields={[
         {field: 'id', editHidden: 1},               // filed 字段名 ,editHidden:编辑时是否隐藏（id一般不允许编辑）                                
@@ -62,7 +62,7 @@ export default Menu
 
 ### 后端 s_menu.go
 
-```text
+```go
 package controller
 
 var Menu = menu{table: "s_menu"}
