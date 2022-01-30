@@ -27,7 +27,7 @@ ciel_admin 是一个简洁的后台管理系统，提供了简单的权限管理
 
 真的追求简洁，一个表的CURD 前端+后端代码不到100行。例如菜单页面
 
-### 前端 menu.js
+### menu.js(前端)
 
 ```js
 const Menu = () => <DefaultPage
@@ -60,7 +60,7 @@ export default Menu
 
 只需要将数据库中使用到字段添加到js中即可。
 
-### 后端 s_menu.go
+### s_menu.go(后端)
 
 ```go
 package controller
