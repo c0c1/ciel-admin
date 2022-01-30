@@ -8,10 +8,10 @@
 导航 <br>
 ![img](document/menu.png)
 
-详情页面  <br>
+详情页面&底部便捷导航  <br>
 ![img](document/menu_list.png)
 
-修改页面 <br>
+修改页面(在同一个文件里，只是设置了隐藏) <br>
 ![img](document/update.png)
 
 ## 说明
@@ -27,24 +27,22 @@ ciel-admin 是一个简洁的后台管理系统，提供了简单的权限管理
 
 真的追求简洁，一个表的CURD 前端+后端代码不到100行。例如菜单页面
 
-前端 menu.js
+### 前端 menu.js
 
 ```text
-import DefaultPage from "../../components/defaultPage";
-
 const Menu = () => <DefaultPage
     fields={[
-        {field: 'id', editHidden: 1},                                              // filed 字段名 ,editHidden:编辑时是否隐藏（id一般不允许编辑）
-        {field: 'pid', search: 1, type: 'number'},                                 // type: 默认为 input 可不填，可选 number|select(当为select时需要指定items)  
-        {field: 'name', search: 1},                                                // search: 是否搜索
+        {field: 'id', editHidden: 1},               // filed 字段名 ,editHidden:编辑时是否隐藏（id一般不允许编辑）                                
+        {field: 'pid', search: 1, type: 'number'},  // type: 默认为 input 可不填，可选 number|select(当为select时需要指定items)  
+        {field: 'name', search: 1},                 // search: 是否搜索
         {field: 'sort', type: 'number', step: '0.1', detailsDesc: "请给一个排序"}, // detailsDesc  input框的简要说明
         {
             field: 'type', title: '类型', search: 1, type: "select",   
             items: [
                 {
-                    label: 'group',                                                // 可选时的标签
-                    value: 1,                                                      // 对应数据库的值
-                    bgGround: "#80deea"                                            // 背景颜色，不给则使用系统自动匹配   
+                    label: 'group',     // 可选时的标签
+                    value: 1,           // 对应数据库的值
+                    bgGround: "#80deea" // 背景颜色，不给则使用系统自动匹配   
                 },
                 {
                     label: 'point',
@@ -60,21 +58,12 @@ const Menu = () => <DefaultPage
 export default Menu
 ```
 
-只需要将数据库中使用到自动添加到js中即可。
+只需要将数据库中使用到字段添加到js中即可。
 
-后端 s_menu.go
+### 后端 s_menu.go
 
 ```text
 package controller
-
-import (
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/gctx"
-	"interface/internal/model/entity"
-	"interface/internal/service"
-	"interface/utility/res"
-	"interface/utility/utils/xparam"
-)
 
 var Menu = menu{table: "s_menu"}
 
@@ -130,25 +119,20 @@ func (c *menu) GetById(r *ghttp.Request) {
 }
 ```
 
-## 主要的两个文件
+## 快速启动
 
-当前简洁的背后，主要在于将相同的操作都分装在了两个文件中。
+1. `git clone git@github.com:1211ciel/ciel-admin.git`
+2. 创建数据库 `ciel_admin` 导入 `interface/ciel_admin.sql`
+3. 配置  `interface/manifest/config/config.yaml`
+4. 运行后后台接口：进入 `interafce` 目录运行 `go mod tidy && gf run main.go`
+5. 运行前台      : 进入 `admin` 目录运行 `npm install && npm run dev`
+6. 访问 `http://localhost:3000/` 登录 默认用户 `admin` 密码 `1`
 
-### 前端 defaultPage.js
+当然简洁的背后，主要在于将相同的操作都分装在了两个文件中。
+
+## 前端主要文件 defaultPage.js
 
 ```js
-import useSWR from "swr";
-import {useEffect, useState} from "react";
-import {toast} from "react-toastify";
-import Meta from "./meta";
-import {Nav} from "./nav";
-import {TableFooter} from "./table";
-import {defaultPageParam} from "../data/const";
-import request from "../utils/request";
-import {DetailsLi2} from "./detailsLi";
-import {SearchLi} from "./searchLi";
-import {TableTd} from "./tableTd";
-
 // defaultPage
 const DefaultPage = ({
                          name,      //must 页面标题名
@@ -159,23 +143,39 @@ const DefaultPage = ({
                          noSearch,  // option  没有寿搜索按钮？ 同上
                          query,     // option  默认查询参数  用法见 Role角色页面
                      }) => {
-    const fetcher = async ({url, params}) => request({url: url, method: 'get', params}),                     // 获取列表请求
-        update = async (data) => request({url: `/${urlPrefix}/update`, method: 'put', data}),                // 修改请求
-        add = async (data) => request({url: `/${urlPrefix}/add`, method: 'post', data}),                     // 添加请求
-        del = async (id) => request({url: `/${urlPrefix}/del?id=${id}`, method: 'delete'})                   // 删除请求
-    const [params, setParams] = useState({...defaultPageParam, ...query}),                                   // 查询参数
-        [paramsTemp, setParamsTemp] = useState(params),                                                      // 查询临时参数
-        [details, setDetails] = useState({showType: "main"}),                                                // 修改和添加参数
-        {data, mutate} = useSWR({url: `/${urlPrefix}/list`, params: params}, fetcher),                       // swr 查询（用法请看 swr官网）
-        {currPage, list, totalPage, totalCount} = data ? data.data : ""                                      // 返回数据
-    useEffect(() => setParams({...params, ...query}), [query])                                               // 到用到 query时将查询参数添加到 params中
-    const onSearch = () => setParams(paramsTemp),                                                            // 搜索操作
-        onChange = (e, name) => setParamsTemp({...paramsTemp, [name]: e.target.value}),                      // 查询临时参数变动时
-        onDetailsChange = (e, name) => setDetails({...details, [name]: e.target.value}),                     // 修改和添加参数变动时
-        onKeyDown = (e) => (e.key === 'Enter') ? params.page = 1 && onSearch() : "",                         // 搜索键盘事件enter事件 
-        onDelete = async (id) => (confirm("Are you sure?")) ? await del(id) && toast('ok') && mutate() : "", // 删除操作
-        onSubmit = async () => {                                                                             // 添加或修改操作
-            let {code, msg} = details.showType === "update" ? await update(details) : await add(details)     // 判断修改还是添加
+    // 获取列表请求
+    const fetcher = async ({url, params}) => request({url: url, method: 'get', params}),
+        // 修改请求
+        update = async (data) => request({url: `/${urlPrefix}/update`, method: 'put', data}),
+        // 添加请求
+        add = async (data) => request({url: `/${urlPrefix}/add`, method: 'post', data}),
+        // 删除请求
+        del = async (id) => request({url: `/${urlPrefix}/del?id=${id}`, method: 'delete'})
+    // 查询参数
+    const [params, setParams] = useState({...defaultPageParam, ...query}),
+        // 查询临时参数
+        [paramsTemp, setParamsTemp] = useState(params),
+        // 修改和添加参数
+        [details, setDetails] = useState({showType: "main"}),
+        // swr 查询（用法请看 swr官网）
+        {data, mutate} = useSWR({url: `/${urlPrefix}/list`, params: params}, fetcher),
+        // 返回数据
+        {currPage, list, totalPage, totalCount} = data ? data.data : ""
+    // 到用到 query时将查询参数添加到 params中
+    useEffect(() => setParams({...params, ...query}), [query])
+    // 搜索操作
+    const onSearch = () => setParams(paramsTemp),
+        // 查询临时参数变动时
+        onChange = (e, name) => setParamsTemp({...paramsTemp, [name]: e.target.value}),
+        // 修改和添加参数变动时
+        onDetailsChange = (e, name) => setDetails({...details, [name]: e.target.value}),
+        // 搜索键盘事件enter事件 
+        onKeyDown = (e) => (e.key === 'Enter') ? params.page = 1 && onSearch() : "",
+        // 删除操作
+        onDelete = async (id) => (confirm("Are you sure?")) ? await del(id) && toast('ok') && mutate() : "",
+        // 添加或修改操作
+        onSubmit = async () => {
+            let {code, msg} = details.showType === "update" ? await update(details) : await add(details) // 判断修改还是添加
             if (code === 0) {
                 toast(msg)
                 mutate()
@@ -192,7 +192,7 @@ const DefaultPage = ({
             />
         )}
     </ul>
-    if (list) {                                                                                              // 当数据存在则填充tbody
+    if (list) { // 当数据存在则填充tbody
         tbody = list.map(item => <tr key={item.id}>
             {fields.filter(item => !item.hidden).map(i => (<TableTd key={i.field + 's'} value={item[i.field]} type={i.type} items={i.items}/>))}
             <td>
@@ -214,7 +214,8 @@ const DefaultPage = ({
                 </ul>
             </section>
         </header>
-        <main className={' hr'} hidden={!(details.showType === "main")}>// 主数据区域
+        // 主数据区域
+        <main className={' hr'} hidden={!(details.showType === "main")}>
             <table>
                 <thead>
                     <tr>
@@ -226,7 +227,8 @@ const DefaultPage = ({
                 <TableFooter params={params} setParams={setParams} current={currPage} tCount={totalCount} tPage={totalPage}/>
             </table>
         </main>
-        <section className={'details'} hidden={!(details.showType === "add" || details.showType === "update")}>// 修改和添加区域默认隐藏
+        // 修改和添加区域默认隐藏
+        <section className={'details'} hidden={!(details.showType === "add" || details.showType === "update")}>
             <h2>Step1 Set info</h2>
             <section>
                 <ul> {fields.filter(item => !item.editHidden).map(item =>
@@ -247,21 +249,14 @@ const DefaultPage = ({
 export default DefaultPage
 ```
 
-### 后台
+### 后端
 
 #### 路由注册
+
 添加新的数据表时才此文件进行注册
+
 ```go
 package cmd
-
-import (
-	"context"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/gcmd"
-	"interface/internal/controller"
-	"interface/utility/middleware"
-)
 
 var (
 	Main = gcmd.Command{
@@ -299,17 +294,9 @@ var (
 ```
 
 #### controller
+
 ```go
 package controller
-
-import (
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/gctx"
-	"interface/internal/model/entity"
-	"interface/internal/service"
-	"interface/utility/res"
-	"interface/utility/utils/xparam"
-)
 
 var Menu = menu{table: "s_menu"}
 
@@ -323,27 +310,27 @@ func (c *menu) List(r *ghttp.Request) {
 		Table: c.table,
 		Page:  page, Size: size,
 		Conditions: []*service.Condition{
-			{Field: "id", Value: r.GetQuery("id")},                              //如果有新的查询需求在此处添加即可
+			{Field: "id", Value: r.GetQuery("id")}, //如果有新的查询需求在此处添加即可
 			{Field: "pid", Value: r.GetQuery("pid")},
 			{Field: "type", Value: r.GetQuery("type")},
 			{Field: "status", Value: r.GetQuery("status")},
 			{Field: "name", Value: r.GetQuery("name"), Like: true},
 		},
-		OrderBy: "sort desc,id desc",                                            // 排序规则 默认 `desc id`
+		OrderBy: "sort desc,id desc", // 排序规则 默认 `desc id`
 	})
 	res.OkPage(data, total, page, size, r)
 }
 func (c *menu) Add(r *ghttp.Request) {
 	var d entity.Menu
 	_ = r.Parse(&d)
-	if err := service.Add(gctx.New(), c.table, &d); err != nil {                 // 调用通用 service添加方法 (若有其他业务则创建对应的service文件即可)
+	if err := service.Add(gctx.New(), c.table, &d); err != nil { // 调用通用 service添加方法 (若有其他业务则创建对应的service文件即可)
 		res.Error(err, r)
 	}
 	res.OK(r)
 }
 
 func (c *menu) Del(r *ghttp.Request) {
-	if err := service.Del(gctx.New(), c.table, xparam.ID(r)); err != nil {       // 同上
+	if err := service.Del(gctx.New(), c.table, xparam.ID(r)); err != nil { // 同上
 		res.Error(err, r)
 	}
 	res.OK(r)
@@ -352,46 +339,40 @@ func (c *menu) Del(r *ghttp.Request) {
 func (c *menu) Put(r *ghttp.Request) {
 	var d entity.Menu
 	_ = r.Parse(&d)
-	if err := service.Update(gctx.New(), c.table, d.Id, &d); err != nil {        // 同上
+	if err := service.Update(gctx.New(), c.table, d.Id, &d); err != nil { // 同上
 		res.Error(err, r)
 	}
 	res.OK(r)
 }
 
-func (c *menu) GetById(r *ghttp.Request) {                                       // 同上
+func (c *menu) GetById(r *ghttp.Request) { // 同上
 	data, _ := service.GetById(gctx.New(), c.table, xparam.ID(r))
 	res.OKData(data, r)
 }
 ```
-#### 公共 service方法 
-如果没有特殊需求，只需要写 `controller` 和`cmd` 路由注册文件即可，因为所有 `controller` 层都可以调用该通用`service` 方法
-```go
-package service 
 
-import (
-	"context"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/util/gconv"
-	"interface/utility/utils/xstr"
-)
+### 后端主要文件公共service方法
+
+如果没有特殊需求，只需要写 `controller` 和`cmd` 路由注册文件即可，因为所有 `controller` 层都可以调用该通用`service` 方法
+
+```go
+package service
 
 type Condition struct {
-	Field string                                                                            // 需要搜索的字段
-	Value interface{}                                                                       // 具体值
-	Like  bool                                                                              // false:where true: whereLike 
+	Field string      // 需要搜索的字段
+	Value interface{} // 具体值
+	Like  bool        // false:where true: whereLike 
 }
-type SearchConf struct { 
-	Table      string                                                                       // 表名
-	Page, Size int                                                                          // 页数和大小
-	Conditions []*Condition                                                                 // 查询条件
-	OrderBy    string                                                                       // 排序方式
-	FieldsEx   string                                                                       // 过滤的字段
+type SearchConf struct {
+	Table      string       // 表名
+	Page, Size int          // 页数和大小
+	Conditions []*Condition // 查询条件
+	OrderBy    string       // 排序方式
+	FieldsEx   string       // 过滤的字段
 }
 
-func QueryCondition(filed string, r *ghttp.Request, like ...bool) *Condition {              // 新添查询条件方法
+// 新添查询条件方法
+func QueryCondition(filed string, r *ghttp.Request, like ...bool) *Condition {
 	condition := Condition{Field: filed, Value: r.GetQuery(filed)}
 	if len(like) > 0 {
 		condition.Like = true
@@ -399,7 +380,8 @@ func QueryCondition(filed string, r *ghttp.Request, like ...bool) *Condition {  
 	return &condition
 }
 
-func List(ctx context.Context, s SearchConf) (int, gdb.List) {                              // 通用List查询
+// 通用List查询
+func List(ctx context.Context, s SearchConf) (int, gdb.List) {
 	db := g.DB().Model(s.Table).Ctx(ctx)
 	if len(s.Conditions) > 0 {
 		for _, item := range s.Conditions {
@@ -428,7 +410,9 @@ func List(ctx context.Context, s SearchConf) (int, gdb.List) {                  
 	}
 	return count, all.List()
 }
-func GetById(ctx context.Context, table, id interface{}) (gdb.Record, error) {              // 通用根据ID查参数方法
+
+// 通用根据ID查参数方法
+func GetById(ctx context.Context, table, id interface{}) (gdb.Record, error) {
 	one, err := g.DB().Ctx(ctx).Model(table).One("id", id)
 	if err != nil {
 		glog.Error(ctx, err)
@@ -436,7 +420,9 @@ func GetById(ctx context.Context, table, id interface{}) (gdb.Record, error) {  
 	}
 	return one, nil
 }
-func Add(ctx context.Context, table, data interface{}) error {                              // 通用添加方法
+
+// 通用添加方法
+func Add(ctx context.Context, table, data interface{}) error {
 	_, err := g.DB().Ctx(ctx).Model(table).Insert(data)
 	if err != nil {
 		glog.Error(ctx, err)
@@ -444,14 +430,18 @@ func Add(ctx context.Context, table, data interface{}) error {                  
 	}
 	return nil
 }
-func Del(ctx context.Context, table, id interface{}) (err error) {                         // 通用删除方法
+
+// 通用删除方法
+func Del(ctx context.Context, table, id interface{}) (err error) {
 	if _, err = g.DB().Ctx(ctx).Model(table).Delete("id", id); err != nil {
 		glog.Error(ctx, err)
 		return
 	}
 	return
 }
-func Update(ctx context.Context, table string, id, data interface{}) error {              // 通用修改方法
+
+// 通用修改方法
+func Update(ctx context.Context, table string, id, data interface{}) error {
 	_, err := g.DB().Update(ctx, table, data, "id", id)
 	if err != nil {
 		glog.Error(ctx, err)
